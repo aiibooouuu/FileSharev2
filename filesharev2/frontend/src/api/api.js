@@ -60,14 +60,26 @@ export const api = {
         
         console.log("Response status:", res.status);
         console.log("Response ok:", res.ok);
+        console.log("Response headers:", {
+            contentType: res.headers.get('content-type'),
+            ngrok: res.headers.get('ngrok-skip-browser-warning'),
+        });
 
         if (!res.ok) {
             const error = await res.text();
-            console.error("Error response body:", error);
+            console.error("Error response body (first 500 chars):", error.substring(0, 500));
             throw new Error(error || "Failed to get files");
         }
 
-        return res.json();
+        const text = await res.text();
+        console.log("Response text (first 500 chars):", text.substring(0, 500));
+        
+        try {
+            return JSON.parse(text);
+        } catch (e) {
+            console.error("JSON parse error:", e);
+            throw new Error("Invalid JSON response");
+        }
     },
 
     uploadFile: async (room_id, access_id, file) => {
