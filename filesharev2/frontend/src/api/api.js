@@ -1,12 +1,15 @@
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
+const defaultHeaders = {
+    "ngrok-skip-browser-warning": "true",
+    "Content-Type": "application/json",
+};
+
 export const api = {
     login: async (email, password) => {
         const res = await fetch(`${BASE_URL}/admin/login`, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
+            headers: defaultHeaders,
             body: JSON.stringify({ email, password }),
         });
 
@@ -24,7 +27,7 @@ export const api = {
             {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json",
+                    ...defaultHeaders,
                     "Authorization": `Bearer ${token}`,
                 },
                 body: JSON.stringify({
@@ -42,6 +45,7 @@ export const api = {
             `${BASE_URL}/auth/enter?room_id=${room_id}&access_id=${access_id}`,
             {
                 method: "POST",
+                headers: defaultHeaders,
             }
         );
 
@@ -50,7 +54,10 @@ export const api = {
 
     getFiles: async (room_id) => {
         const res = await fetch(
-            `${BASE_URL}/files/list-files?room_id=${room_id}`
+            `${BASE_URL}/files/list-files?room_id=${room_id}`,
+            {
+                headers: defaultHeaders,
+            }
         );
         return res.json();
     },
@@ -63,6 +70,9 @@ export const api = {
             `${BASE_URL}/files/upload?room_id=${room_id}&access_id=${access_id}`,
             {
                 method: "POST",
+                headers: {
+                    "ngrok-skip-browser-warning": "true",
+                },
                 body: formData,
             }
         );
@@ -86,12 +96,14 @@ export const api = {
         }
 
         const res = await fetch(
-            `${BASE_URL}/files/upload-url?${params.toString()}`
+            `${BASE_URL}/files/upload-url?${params.toString()}`,
+            {
+                headers: defaultHeaders,
+            }
         );
         
         const data = await res.json();
         
-        // Handle error response
         if (!res.ok) {
             throw new Error(data.detail || "Failed to get upload URL");
         }
@@ -101,7 +113,10 @@ export const api = {
 
     getDownloadUrl: async (room_id, filename) => {
         const res = await fetch(
-            `${BASE_URL}/files/download-url?room_id=${room_id}&filename=${filename}`
+            `${BASE_URL}/files/download-url?room_id=${room_id}&filename=${filename}`,
+            {
+                headers: defaultHeaders,
+            }
         );
         return res.json();
     },
