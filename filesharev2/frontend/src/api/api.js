@@ -59,6 +59,12 @@ export const api = {
                 headers: defaultHeaders,
             }
         );
+
+        if (!res.ok) {
+            const error = await res.text();
+            throw new Error(error || "Failed to get files");
+        }
+
         return res.json();
     },
 
@@ -78,8 +84,8 @@ export const api = {
         );
 
         if (!res.ok) {
-            const error = await res.json();
-            throw new Error(error.detail || "Upload failed");
+            const error = await res.text();
+            throw new Error(error || "Upload failed");
         }
 
         return res.json();
@@ -102,13 +108,12 @@ export const api = {
             }
         );
         
-        const data = await res.json();
-        
         if (!res.ok) {
-            throw new Error(data.detail || "Failed to get upload URL");
+            const error = await res.text();
+            throw new Error(error || "Failed to get upload URL");
         }
 
-        return data;
+        return res.json();
     },
 
     getDownloadUrl: async (room_id, filename) => {
@@ -118,6 +123,12 @@ export const api = {
                 headers: defaultHeaders,
             }
         );
+
+        if (!res.ok) {
+            const error = await res.text();
+            throw new Error(error || "Failed to get download URL");
+        }
+
         return res.json();
     },
 };
