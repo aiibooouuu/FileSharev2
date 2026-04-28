@@ -53,6 +53,10 @@ export const api = {
     },
 
     getFiles: async (room_id) => {
+        console.log("BASE_URL:", BASE_URL);
+        console.log("Full URL:", `${BASE_URL}/files/list-files?room_id=${room_id}`);
+        console.log("Headers:", defaultHeaders);
+        
         const res = await fetch(
             `${BASE_URL}/files/list-files?room_id=${room_id}`,
             {
@@ -60,8 +64,12 @@ export const api = {
             }
         );
 
+        console.log("Response status:", res.status);
+        console.log("Response ok:", res.ok);
+
         if (!res.ok) {
             const error = await res.text();
+            console.error("Error response body:", error);
             throw new Error(error || "Failed to get files");
         }
 
