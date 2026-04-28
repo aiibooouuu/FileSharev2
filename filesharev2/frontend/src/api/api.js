@@ -2,7 +2,6 @@ const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const defaultHeaders = {
     "ngrok-skip-browser-warning": "true",
-    "Content-Type": "application/json",
 };
 
 const fetchWithHeaders = (url, options = {}) => {
