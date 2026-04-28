@@ -1,0 +1,161 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+body {
+    background-color: #090B0A;
+    color: #F7FAF8;
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    overflow-x: hidden;
+}
+
+.center {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background-color: #090B0A;
+    background-image: 
+        radial-gradient(circle at 20% 50%, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(52, 211, 153, 0.06) 0%, transparent 50%),
+        radial-gradient(rgba(34, 42, 37, 0.171) 2px, transparent 2px);
+    background-size: 100% 100%, 100% 100%, 30px 30px;
+    background-position: 0 0, 0 0, -5px -5px;
+}
+
+.container {
+    position: relative;
+    z-index: 2;
+    backdrop-filter: blur(8px);
+    background: rgba(24, 29, 26, 0.5);
+    border: 1px solid rgba(16, 185, 129, 0.15);
+    border-radius: 20px;
+    padding: 70px 90px;
+    box-shadow: 
+        0 8px 32px rgba(16, 185, 129, 0.12),
+        inset 0 1px 1px rgba(255, 255, 255, 0.03);
+    max-width: 520px;
+    text-align: center;
+    animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.container h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #F7FAF8;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #A7F3D0 0%, #34D399 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.container p {
+    font-size: 1.05rem;
+    color: #C2D1C8;
+    margin-bottom: 55px;
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+.home-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 28px;
+    font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.3px;
+}
+
+button:first-child {
+    background: #10B981;
+    color: #FFFFFF;
+    border: 1px solid rgba(52, 211, 153, 0.3);
+}
+
+button:first-child:hover {
+    background: #059669;
+    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.25);
+    transform: translateY(-1px);
+}
+
+button.secondary {
+    background: rgba(16, 185, 129, 0.08);
+    color: #A7F3D0;
+    border: 1.5px solid rgba(16, 185, 129, 0.25);
+}
+
+button.secondary:hover {
+    background: rgba(16, 185, 129, 0.12);
+    border-color: rgba(52, 211, 153, 0.4);
+    color: #34D399;
+    transform: translateY(-1px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+svg {
+    width: 20px;
+    height: 20px;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 50px 40px;
+        max-width: 90%;
+        border-radius: 16px;
+    }
+
+    .container h1 {
+        font-size: 2.2rem;
+        margin-bottom: 10px;
+    }
+
+    .container p {
+        font-size: 0.95rem;
+        margin-bottom: 40px;
+    }
+
+    button {
+        padding: 12px 24px;
+        font-size: 0.9rem;
+    }
+
+    svg {
+        width: 18px;
+        height: 18px;
+    }
+}
