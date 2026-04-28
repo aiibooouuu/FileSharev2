@@ -5,50 +5,47 @@ const defaultHeaders = {
     "Content-Type": "application/json",
 };
 
+const fetchWithHeaders = (url, options = {}) => {
+    return fetch(url, {
+        ...options,
+        headers: {
+            ...defaultHeaders,
+            ...options.headers,
+        },
+    });
+};
+
 export const api = {
     login: async (email, password) => {
-        const res = await fetch(`${BASE_URL}/admin/login`, {
+        const res = await fetchWithHeaders(`${BASE_URL}/admin/login`, {
             method: "POST",
-            headers: defaultHeaders,
             body: JSON.stringify({ email, password }),
         });
-
         const data = await res.json();
         console.log("RAW RESPONSE:", data);
-
         return data;
     },
 
     createRoom: async (name, description, expiry = 2) => {
         const token = localStorage.getItem("token");
-
-        const res = await fetch(
+        const res = await fetchWithHeaders(
             `${BASE_URL}/admin/rooms?expiry_hours=${expiry}`,
             {
                 method: "POST",
                 headers: {
-                    ...defaultHeaders,
                     "Authorization": `Bearer ${token}`,
                 },
-                body: JSON.stringify({
-                    name,
-                    description,
-                }),
+                body: JSON.stringify({ name, description }),
             }
         );
-
         return res.json();
     },
 
     enterRoom: async (room_id, access_id) => {
-        const res = await fetch(
+        const res = await fetchWithHeaders(
             `${BASE_URL}/auth/enter?room_id=${room_id}&access_id=${access_id}`,
-            {
-                method: "POST",
-                headers: defaultHeaders,
-            }
+            { method: "POST" }
         );
-
         return res.json();
     },
 
@@ -57,13 +54,10 @@ export const api = {
         console.log("Full URL:", `${BASE_URL}/files/list-files?room_id=${room_id}`);
         console.log("Headers:", defaultHeaders);
         
-        const res = await fetch(
-            `${BASE_URL}/files/list-files?room_id=${room_id}`,
-            {
-                headers: defaultHeaders,
-            }
+        const res = await fetchWithHeaders(
+            `${BASE_URL}/files/list-files?room_id=${room_id}`
         );
-
+        
         console.log("Response status:", res.status);
         console.log("Response ok:", res.ok);
 
@@ -79,16 +73,10 @@ export const api = {
     uploadFile: async (room_id, access_id, file) => {
         const formData = new FormData();
         formData.append("file", file);
-
-        const res = await fetch(
+        
+        const res = await fetchWithHeaders(
             `${BASE_URL}/files/upload?room_id=${room_id}&access_id=${access_id}`,
-            {
-                method: "POST",
-                headers: {
-                    "ngrok-skip-browser-warning": "true",
-                },
-                body: formData,
-            }
+            { method: "POST", body: formData }
         );
 
         if (!res.ok) {
@@ -100,20 +88,13 @@ export const api = {
     },
 
     getUploadUrl: async (room_id, filename, access_id = null) => {
-        const params = new URLSearchParams({
-            room_id,
-            filename,
-        });
-        
+        const params = new URLSearchParams({ room_id, filename });
         if (access_id) {
             params.append("access_id", access_id);
         }
 
-        const res = await fetch(
-            `${BASE_URL}/files/upload-url?${params.toString()}`,
-            {
-                headers: defaultHeaders,
-            }
+        const res = await fetchWithHeaders(
+            `${BASE_URL}/files/upload-url?${params.toString()}`
         );
         
         if (!res.ok) {
@@ -125,11 +106,8 @@ export const api = {
     },
 
     getDownloadUrl: async (room_id, filename) => {
-        const res = await fetch(
-            `${BASE_URL}/files/download-url?room_id=${room_id}&filename=${filename}`,
-            {
-                headers: defaultHeaders,
-            }
+        const res = await fetchWithHeaders(
+            `${BASE_URL}/files/download-url?room_id=${room_id}&filename=${filename}`
         );
 
         if (!res.ok) {

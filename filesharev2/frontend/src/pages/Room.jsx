@@ -39,11 +39,15 @@ export default function Room() {
     const fetchFiles = async () => {
         setLoading(true);
         try {
+            console.log("🔍 Fetching files for room:", roomId);
             const res = await api.getFiles(roomId);
+            console.log("✅ Files response:", res);
             setFiles(res.files || []);
+            setError("");
         } catch (err) {
-            console.error("Error fetching files:", err);
-            setError("Error loading files");
+            console.error("❌ Error fetching files:", err);
+            console.error("Error message:", err.message);
+            setError("Error loading files: " + err.message);
         } finally {
             setLoading(false);
         }
