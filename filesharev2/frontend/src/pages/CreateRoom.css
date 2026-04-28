@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+.subtitle {
+    margin-bottom: 40px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.input-icon {
+    position: absolute;
+    left: 16px;
+    top: 14px;
+    color: #C2D1C8;
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+}
+
+.form-input {
+    width: 100%;
+    padding: 14px 16px 14px 48px;
+    font-size: 1rem;
+    background: rgba(21, 26, 23, 0.6);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: 11px;
+    color: #F7FAF8;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.25s ease;
+}
+
+.form-input::placeholder {
+    color: #7D8B84;
+}
+
+.form-input:focus {
+    outline: none;
+    background: rgba(21, 26, 23, 0.8);
+    border-color: rgba(16, 185, 129, 0.4);
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.14);
+}
+
+.form-textarea {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 1rem;
+    background: rgba(21, 26, 23, 0.6);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: 11px;
+    color: #F7FAF8;
+    font-family: 'Poppins', sans-serif;
+    resize: vertical;
+    transition: all 0.25s ease;
+}
+
+.form-textarea::placeholder {
+    color: #7D8B84;
+}
+
+.form-textarea:focus {
+    outline: none;
+    background: rgba(21, 26, 23, 0.8);
+    border-color: rgba(16, 185, 129, 0.4);
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.14);
+}
+
+.error-message {
+    color: #DC2626;
+    font-size: 0.9rem;
+    margin-top: 14px;
+    font-weight: 500;
+}
+
+.create-button {
+    width: 100%;
+    margin-top: 30px;
+    gap: 10px;
+}
+
+.create-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.back-link {
+    margin-top: 24px;
+    font-size: 0.9rem;
+    color: #7D8B84;
+}
+
+.home-link {
+    color: #34D399;
+    cursor: pointer;
+    font-weight: 500;
+    transition: color 0.25s ease;
+}
+
+.home-link:hover {
+    color: #A7F3D0;
+}
+
+@media (max-width: 600px) {
+    .form-input,
+    .form-textarea {
+        padding: 12px 14px 12px 44px;
+        font-size: 0.95rem;
+    }
+
+    .input-icon {
+        width: 18px;
+        height: 18px;
+        left: 14px;
+        top: 12px;
+    }
+
+    .form-group {
+        gap: 14px;
+    }
+}
